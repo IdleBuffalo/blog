@@ -4,13 +4,19 @@ class PostsController < ApplicationController
 	end
 
 	def new
+		@post = Post.new
 	end
 
 	def create
 		@post = Post.new(post_params)
-		@post.save
-
-		redirect_to @post
+		
+		if @post.save
+			redirect_to @post
+		else
+			render 'new'	
+			# renders new method which is Post.new 
+			# We want to render instead of redirect because that way you don;t lose what you typed in the body
+		end
 	end
 
 	def show
